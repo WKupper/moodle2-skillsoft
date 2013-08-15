@@ -326,7 +326,7 @@ class olsa_soapclient extends SoapClient{
 	/*Overload the original method, to use CURL for requests as SOAPClient has limited proxy support
 	 *
 	 */
-	public function __doRequest($request, $location, $action, $version) {
+	public function __doRequest($request, $location, $action, $version, $one_way=0) {
 		global $CFG;
 
 		$headers = array(
@@ -389,7 +389,7 @@ class olsa_soapclient extends SoapClient{
 	}
 
 	/*Overload the original method, and add the WS-Security Header */
-	public function __soapCall($function_name,$arguments,$options=null,$input_headers=null,$output_headers=null){
+	public function __soapCall($function_name,$arguments,$options=array(),$input_headers=null,&$output_headers=array()){
 		$result = parent::__soapCall($function_name,$arguments,$options,$this->generate_header());
 
 		return $result;
